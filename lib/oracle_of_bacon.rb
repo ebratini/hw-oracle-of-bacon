@@ -56,7 +56,7 @@ class OracleOfBacon
     attr_reader :type, :data
     # create a Response object from a string of XML markup.
     def initialize(xml)
-      @doc, @data = Nokogiri::XML(xml), []
+      @doc = Nokogiri::XML(xml)
       parse_response
     end
 
@@ -84,16 +84,12 @@ class OracleOfBacon
     
     def parse_graph_response
       @type = :graph
-      @doc.xpath('/link/*').each do |node|
-        @data << node.text()
-      end
+      @data = @doc.xpath('/link/*').map { |node| node.text }
     end
     
     def parse_spellcheck_response
       @type = :spellcheck
-      @doc.xpath('/spellcheck/*').each do |node|
-        @data << node.text()
-      end
+      @data = @doc.xpath('/spellcheck/*').map { |node| node.text }
     end
     
     def parse_unknown_response
