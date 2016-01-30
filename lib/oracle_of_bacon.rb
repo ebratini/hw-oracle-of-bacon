@@ -43,7 +43,7 @@ class OracleOfBacon
       raise OracleOfBacon::NetworkError
     end
     # your code here: create the OracleOfBacon::Response object
-    OracleOfBacon::Response.new(xml)
+    @response = OracleOfBacon::Response.new(xml)
   end
 
   def make_uri_from_arguments
